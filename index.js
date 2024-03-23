@@ -6,6 +6,7 @@ import { validationResult } from 'express-validator';
 
 import { registerValidator } from './validations/auth.js';
 import UserModel from './models/User.js';
+import checkAuth from './utils/checkAuth.js';
 
 mongoose
   .connect(
@@ -92,10 +93,23 @@ app.post('/auth/register', registerValidator, async (req, res) => {
   }
 });
 
-app.get('/auth/me', (req, res) => {
+app.get('/auth/me', checkAuth, async (req, res) => {
   try {
-    
-  } catch {}
+    const user = await UserModel.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User did not found' });
+    }
+
+    const { passwordHash, ...userData } = user._doc;
+
+    res.json({ userData });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Can`t ME',
+    });
+  }
 });
 
 app.listen(4444, (error) => {
