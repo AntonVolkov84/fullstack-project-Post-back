@@ -31,3 +31,25 @@ export const create = async (req, res) => {
     });
   }
 };
+export const getOne = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const doc = await PostModel.findOneAndUpdate(
+      {
+        _id: postId,
+      },
+      {
+        $inc: { viewsCount: 1 },
+      },
+      {
+        new: 'true',
+      }
+    );
+    res.json(doc);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Can not get a posts',
+    });
+  }
+};
