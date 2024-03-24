@@ -11,7 +11,7 @@ export const loginValidator = [
   body('password', 'Password must be min 5 symb').isLength({ min: 5 }),
 ];
 
-export const postCreateValidator = [
+export const postCreateValidation = [
   body('title', 'Type a title of post').isLength({ min: 3 }).isString(),
   body('text', 'Type text of post').isLength({ min: 3 }).isString(),
   body('tags', 'Incorrect type of tegs').optional().isString(),
