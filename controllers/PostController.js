@@ -45,11 +45,38 @@ export const getOne = async (req, res) => {
         new: 'true',
       }
     );
+    if (!doc) {
+      return res.status(404).json({
+        message: 'Post not found',
+      });
+    }
     res.json(doc);
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: 'Can not get a posts',
+    });
+  }
+};
+export const remove = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const doc = await PostModel.findOneAndDelete({
+      _id: postId,
+    });
+    if (!doc) {
+      console.log(error);
+      return res.status(500).json({
+        message: 'Did not find post',
+      });
+    }
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Can not remove posts',
     });
   }
 };
