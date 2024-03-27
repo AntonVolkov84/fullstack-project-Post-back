@@ -1,3 +1,0 @@
-antvolkov84
-G8SdLeNkI72eyvsq
-mongodb+srv://antvolkov84:G8SdLeNkI72eyvsq@cluster0.am3t6sl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
